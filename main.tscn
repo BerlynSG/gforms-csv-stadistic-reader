@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://6pey1qkhsj66"]
+
+[ext_resource type="Script" uid="uid://dd1cy8scoe4xb" path="res://read_csv.gd" id="1_ig7tw"]
+
+[node name="Main" type="Control" node_paths=PackedStringArray("file_dialog", "rich_text_label", "file_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+file_dialog = NodePath("FileDialog")
+rich_text_label = NodePath("VBoxContainer/ScrollContainer/RichTextLabel")
+file_label = NodePath("VBoxContainer/PanelContainer/HBoxContainer/Label")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.csv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cargar"
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+bbcode_enabled = true
+fit_content = true
+context_menu_enabled = true
+selection_enabled = true
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HBoxContainer/LoadButton" to="." method="load"]
