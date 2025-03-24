@@ -3,10 +3,13 @@ class_name Answer
 var name: String
 var question: Question
 
+var x: int = 0
 var frecuency: int = 0
 var frecuency_relative: float
 var frecuency_porcent: float
-var fracuency_absolute: int
+var frecuency_absolute: int
+
+var xf: int
 
 func _init(name: String, question: Question) -> void:
 	self.name = name

@@ -7,11 +7,11 @@ extends Node
 var csv: Dictionary[String, Question]
 
 func load_csv(path: String, delim := ","):
+	csv.clear()
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	
 	var questions = file.get_csv_line(delim)
 	for question in questions:
-		#csv[question] = {}
 		csv[question] = Question.new()
 	
 	while file.get_position() < file.get_length():
@@ -22,7 +22,7 @@ func load_csv(path: String, delim := ","):
 			question.add_answer(line[l])
 	file.close()
 
-func load() -> void:
+func _on_load_button_pressed() -> void:
 	file_dialog.visible = true
 
 
@@ -30,6 +30,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 	load_csv(path)
 	var text: String
 	for q in csv:
+		if q == csv.keys()[0]: continue
 		csv[q].calculate()
 		text += "----------------------------------------"
 		text += q + ":\n"
