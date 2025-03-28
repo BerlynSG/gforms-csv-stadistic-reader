@@ -17,31 +17,15 @@ func add_answer(name: String):
 	answers[name] = answer
 
 func get_table() -> String:
-	var text: String = "[table=7]"
-	text += "[cell]Optiones[/cell][cell]|x[/cell]
-	[cell]|f[/cell][cell]|fr[/cell][cell]|fp[/cell][cell]|F[/cell][cell]|xf[/cell]"
-	var n = 1
-	[cell]|f[/cell][cell]|fr[/cell][cell]|fp[/cell][cell]|F[/cell]"
-	#var n = 1
-	var fr_total: float = 0
+	var text: String = "[table=4]"
+	const table_row = "[cell]{0}[/cell][cell]|{1}[/cell][cell]|{2}[/cell][cell]|{3}[/cell]"
+	text += table_row.format(["Opciones", "f", "fp", "F"])
 	var fp_total: float = 0
 	for a in answers:
-		text += "[cell]" + a + "[/cell]"
-		text += "[cell]|" + str(n) + "[/cell]"
-		n += 1
-		text += "[cell]|" + str(answers[a].frecuency) + "[/cell]"
-		text += "[cell]|" + str(answers[a].frecuencia) + "[/cell]"
-		text += "[cell]|" + String.num(answers[a].frecuencia_relativa, 2) + "[/cell]"
-	text += "[cell][/cell][cell]|[/cell]
-	[cell]|" + str(frecuencia_total) + "[/cell]
-	[cell]|" + str(fr_total) + "[/cell][cell]|" + str(fp_total) + "%[/cell]]
-	[cell]|[/cell][cell]|" + str(xf_total) + "[/cell]"
+		text += table_row.format([a, answers[a].frecuencia, String.num(answers[a].frecuencia_porcentual, 2), answers[a].frecuencia_acumulada])
+		fp_total += answers[a].frecuencia_porcentual
+	text += table_row.format(["", frecuencia_total, String.num(fp_total, 2), ""])
 	text += "[/table]"
-	text += "\nMedia = " + String.num(media, 2)
-	text += "\nMediana = " + str(mediana1)
-	if mediana1 != mediana2:
-		text += ", " + str(mediana2)
-	text += "\nModa = " + str(moda)
 	return text
 
 func calculate():
