@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dd1cy8scoe4xb" path="res://read_csv.gd" id="1_ig7tw"]
 
-[node name="Main" type="Control" node_paths=PackedStringArray("file_dialog", "rich_text_label", "file_label")]
+[node name="Main" type="Control" node_paths=PackedStringArray("file_dialog", "rich_text_label", "file_label", "save_button", "save_file_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,11 +13,18 @@ script = ExtResource("1_ig7tw")
 file_dialog = NodePath("FileDialog")
 rich_text_label = NodePath("VBoxContainer/ScrollContainer/RichTextLabel")
 file_label = NodePath("VBoxContainer/PanelContainer/HBoxContainer/Label")
+save_button = NodePath("VBoxContainer/PanelContainer/HBoxContainer/SaveButton")
+save_file_dialog = NodePath("SaveFileDialog")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 ok_button_text = "Open"
 file_mode = 0
+access = 2
+filters = PackedStringArray("*.csv")
+
+[node name="SaveFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
 access = 2
 filters = PackedStringArray("*.csv")
 
@@ -41,6 +48,12 @@ text = "Cargar"
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Guardar"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -57,4 +70,6 @@ context_menu_enabled = true
 selection_enabled = true
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
