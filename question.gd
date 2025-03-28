@@ -11,7 +11,7 @@ var moda: int
 
 func add_answer(name: String):
 	if answers.has(name):
-		answers[name].add_frecuency()
+		answers[name].add_frecuencia()
 		return
 	var answer = Answer.new(name, self)
 	answers[name] = answer
