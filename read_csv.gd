@@ -1,5 +1,6 @@
 extends Node
 
+@export var version_label: Label
 @export var file_dialog: FileDialog
 @export var rich_text_label: RichTextLabel
 @export var file_label: Label
@@ -7,6 +8,9 @@ extends Node
 @export var save_file_dialog: FileDialog
 
 var csv: Dictionary[String, Question]
+
+func _ready() -> void:
+	version_label.text = "Versión: " + ProjectSettings.get_setting("application/config/version", "")
 
 func load_csv(path: String, delim := ","):
 	csv.clear()

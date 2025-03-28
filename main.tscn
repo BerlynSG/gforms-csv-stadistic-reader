@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dd1cy8scoe4xb" path="res://read_csv.gd" id="1_ig7tw"]
 
-[node name="Main" type="Control" node_paths=PackedStringArray("file_dialog", "rich_text_label", "file_label", "save_button", "save_file_dialog")]
+[node name="Main" type="Control" node_paths=PackedStringArray("version_label", "file_dialog", "rich_text_label", "file_label", "save_button", "save_file_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
+version_label = NodePath("VBoxContainer/PanelContainer2/VersionLabel")
 file_dialog = NodePath("FileDialog")
 rich_text_label = NodePath("VBoxContainer/ScrollContainer/RichTextLabel")
 file_label = NodePath("VBoxContainer/PanelContainer/HBoxContainer/Label")
@@ -18,6 +19,7 @@ save_file_dialog = NodePath("SaveFileDialog")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
+position = Vector2i(30, 60)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
@@ -25,6 +27,7 @@ filters = PackedStringArray("*.csv")
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
 auto_translate_mode = 1
+position = Vector2i(30, 60)
 access = 2
 filters = PackedStringArray("*.csv")
 
@@ -37,6 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+z_index = 1
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
@@ -68,6 +72,14 @@ bbcode_enabled = true
 fit_content = true
 context_menu_enabled = true
 selection_enabled = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+text = "Versión: 0.2"
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
