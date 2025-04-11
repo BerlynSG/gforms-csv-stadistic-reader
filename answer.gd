@@ -7,6 +7,7 @@ var frecuencia: int = 0
 var frecuencia_relativa: float
 var frecuencia_porcentual: float
 var frecuencia_acumulada: int
+var frecuencia_porcentual_acumulada: float
 
 func _init(name: String, question: Question) -> void:
 	self.name = name

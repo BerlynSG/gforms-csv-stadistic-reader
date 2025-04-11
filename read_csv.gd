@@ -30,22 +30,20 @@ func load_csv(path: String, delim := ","):
 
 func save_csv(path: String, delim := ","):
 	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
-	const empty_line = ["", "", "", ""]
-	const table_header = ["Opciones", "f", "fp", "F"]
+	const empty_line = ["", "", "", "", ""]
+	const table_header = ["Opciones", "f", "F", "fp", "Fp"]
 	
 	for question in csv:
 		var question_data := csv[question]
 		file.store_csv_line(empty_line, delim)
 		file.store_csv_line(empty_line, delim)
-		file.store_csv_line([question, "", "", ""], delim)
+		file.store_csv_line([question, "", "", "", ""], delim)
 		file.store_csv_line(empty_line, delim)
 		file.store_csv_line(table_header, delim)
-		var porciento = 0.
 		for answer in question_data.answers:
 			var answer_data := question_data.answers[answer]
-			file.store_csv_line([answer, answer_data.frecuencia, String.num(answer_data.frecuencia_porcentual, 2), answer_data.frecuencia_acumulada], delim)
-			porciento += answer_data.frecuencia_porcentual
-		file.store_csv_line(["", question_data.frecuencia_total, porciento, ""], delim)
+			file.store_csv_line([answer, answer_data.frecuencia, answer_data.frecuencia_acumulada, String.num(answer_data.frecuencia_porcentual, 2) + "%", String.num(answer_data.frecuencia_porcentual_acumulada, 2) + "%"], delim)
+		file.store_csv_line(["", question_data.frecuencia_total, "", String.num(question_data.frecuencia_porcentual_total, 2) + "%", ""], delim)
 	
 	file.close()
 
